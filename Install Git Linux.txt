@@ -1,0 +1,75 @@
+1.5 Démarrage rapide - Installation de Git
+Installation de Git
+Avant de commencer à utiliser Git, il faut qu’il soit disponible sur votre ordinateur. Même s’il est déjà installé, c’est probablement une bonne idée d’utiliser la dernière version disponible. Vous pouvez l’installer soit comme paquet ou avec un installateur, soit en téléchargeant le code et en le compilant par vous-même.
+
+Note
+Ce livre a été écrit en utilisant Git version 2.8.0. Bien que la plupart des commandes utilisées fonctionnent vraisemblablement encore avec d’anciennes version de Git, certaines peuvent agir différemment. Comme Git est particulièrement excellent pour préserver les compatibilités amont, toute version supérieure à 2.8 devrait fonctionner sans différence.
+
+Installation sur Linux
+Si vous voulez installer les outils basiques de Git sur Linux via un installateur binaire, vous pouvez généralement le faire au moyen de l’outil de gestion de paquet fourni avec votre distribution. Sur Fedora (ou toute distribution parente basée sur RPM, telle que RHEL ou CentOS), vous pouvez utiliser dnf :
+
+$ sudo dnf install git-all
+Sur une distribution basée sur Debian, telle que Ubuntu, essayez apt :
+
+$ sudo apt install git-all
+Pour plus d’options, des instructions d’installation sur différentes versions Unix sont disponibles sur le site web de Git, à https://git-scm.com/download/linux.
+
+Installation sur macOS
+Il existe plusieurs méthodes d’installation de Git sur un Mac. La plus facile est probablement d’installer les Xcode Command Line Tools. Sur Mavericks (10.9) ou postérieur, vous pouvez simplement essayer de lancer git dans le terminal la première fois.
+
+$ git --version
+S’il n’est pas déjà installé, il vous demandera de le faire.
+
+Si vous souhaitez une version plus à jour, vous pouvez aussi l’installer à partir de l’installateur binaire. Un installateur de Git pour macOS est maintenu et disponible au téléchargement sur le site web de Git à https://git-scm.com/download/mac.
+
+installateur de Git pour macOS
+Figure 7. Installateur de Git pour macOS
+Vous pouvez aussi l’installer comme sous-partie de l’installation de GitHub pour macOS. Leur outil Git graphique a une option pour installer les outils en ligne de commande. Vous pouvez télécharger cet outil depuis le site web de GitHub pour macOS, à https://desktop.github.com.
+
+Installation sur Windows
+Il existe aussi plusieurs manières d’installer Git sur Windows. L’application officielle est disponible au téléchargement sur le site web de Git. Rendez-vous sur https://git-scm.com/download/win et le téléchargement démarrera automatiquement. Notez que c’est un projet nommé Git for Windows (appelé aussi msysGit), qui est séparé de Git lui-même ; pour plus d’information, rendez-vous à https://msysgit.github.io/.
+
+Pour obtenir une installation automatisée, vous pouvez utiliser le paquet Chocolatey Git. Notez que le paquet Chocolatey est maintenu par la communauté.
+
+Une autre méthode facile pour installer Git est d’installer Github for Windows. L’installateur inclut une version en ligne de commande avec l’interface graphique. Elle fonctionne aussi avec PowerShell et paramètre correctement les caches d’authentification et les réglages CRLF. Nous en apprendrons plus sur ces sujets plus tard, mais il suffit de savoir que ces options sont très utiles. Vous pouvez télécharger ceci depuis le site de Github for Windows, à l’adresse https://windows.github.com.
+
+Installation depuis les sources
+Certains peuvent plutôt trouver utile d’installer Git depuis les sources car on obtient la version la plus récente. Les installateurs de version binaire tendent à être un peu en retard, même si Git a gagné en maturité ces dernières années, ce qui limite les évolutions.
+
+Pour installer Git, vous avez besoin des bibliothèques suivantes : autotools, curl, zlib, openssl, expat, libiconv. Par exemple, si vous avez un système d’exploitation qui utilise dnf (tel que Fedora) ou apt-get (tel qu’un système basé sur Debian), vous pouvez utiliser l’une des commandes suivantes pour installer les dépendances minimales pour compiler et installer les binaires Git :
+
+$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel
+$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev
+Pour pouvoir ajouter la documentation dans différents formats (doc, html, info), ces dépendances suppplémentaires sont nécessaires :
+
+$ sudo dnf install asciidoc xmlto docbook2X
+$ sudo apt-get install asciidoc xmlto docbook2x
+Note
+Les utilisateurs de RHEL ou dérivés tel que CentOS et Scientific Linux devront activer le dépôt EPEL pour télécharger le paquet docbooc2X.
+
+Si vous utilisez une distribution basée sur Debian (Debian/Ubuntu/dérivés d’Ubuntu), vous avez aussi besoin du paquet install-info :
+
+$ sudo apt-get install install-info
+Si vous utilisez une distribution basée sur RPM (Fedora/RHEL/dérivés de RHEL), vous avez aussi besoin du paquet getopt (qui est déjà installé sur les distributions basées sur Debian) :
+
+$ sudo dnf install getopt
+De plus, si vous utilisez Fedora/RHEL/dérivé de RHEL, vous devez faire ceci :
+
+$ sudo ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
+à cause des différences de nom des binaires.
+
+Quand vous avez toutes les dépendances nécessaires, vous pouvez poursuivre et télécharger la dernière version de Git depuis plusieurs sites. Vous pouvez l’obtenir via Kernel.org, à https://www.kernel.org/pub/software/scm/git, ou sur le miroir sur le site web GitHub à https://github.com/git/git/releases. L’indication de la dernière version est généralement plus claire sur la page GitHub, mais la page kernel.org a également des signatures de version si vous voulez vérifier votre téléchargement.
+
+Puis, compilez et installez :
+
+$ tar -zxf git-2.8.0.tar.gz
+$ cd git-2.8.0
+$ make configure
+$ ./configure --prefix=/usr
+$ make all doc info
+$ sudo make install install-doc install-html install-info
+Après ceci, vous pouvez obtenir Git par Git lui-même pour les mises à jour :
+
+$ git clone git://git.kernel.org/pub/scm/git/git.git
